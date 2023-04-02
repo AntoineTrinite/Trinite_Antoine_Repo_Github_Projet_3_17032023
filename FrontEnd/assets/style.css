@@ -125,15 +125,17 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+/* Rajouter ces catégories en js */
 #category-group{
 	display: flex;
 	justify-content: center;
 	padding: 21px 0 51px 0;
 	gap: 10px;
 }
-.category-btn{
+.category-btn{ 
 	align-items: center;
-	padding: 9px 0;
+	padding: 9px 10px;
 	border-radius: 60px;
 	border: 1px solid #1D6154;
 	background-color:unset;
@@ -141,11 +143,18 @@ li:hover {
 	font-size: 16;
 	font-weight: bold;
 	font-family: 'Syne';
+	min-width: 100px;
+	
 }
 .category-btn:hover{
 	background-color: #1D6154;
 	color: white;
 }
+.btn-active {
+	background-color: #1D6154;
+	color: white;
+}
+/* rajouter ce qui est au dessus en js */
 .gallery {
 	width: 100%;
 	display: grid;
