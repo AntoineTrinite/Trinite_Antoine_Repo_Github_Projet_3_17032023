@@ -1,9 +1,6 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
 @import url('https://fonts.googleapis.com/css2?family=Syne&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -29,8 +26,13 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+.lien-active {
+    font-weight: bold;
+}
 body {
 	line-height: 1;
+    background-color: #FFFEF8;
+    height: 100vh;
 }
 ol, ul {
 	list-style: none;
@@ -57,7 +59,7 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	padding: 50px 0;
 }
 section {
 	margin: 50px 0
@@ -92,10 +94,14 @@ nav ul {
 
 }
 nav li {
-	padding: 0 10px;
-	font-size: 1.2em;
+	padding: 0 22px;
+	font-size: 16px;
+    height: 22px;
 }
-
+#insta-img{
+    height: 22px;
+    width: 22px;
+}
 li:hover {
 	color: #B1663C;
 }
@@ -103,108 +109,41 @@ li:hover {
 	text-decoration: none;
 	color:black;
 }
-#introduction {
-	display: flex;
-	align-items: center;
-}
-#introduction figure {
-	flex: 1
-}
-#introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
-}
 
-#introduction article {
-	flex: 1
-}
-#introduction h2 {
-	margin-bottom: 1em;
-}
-
-#introduction p {
-	margin-bottom: 0.5em;
-}
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
-}
-
-/* Rajouter ces catégories en js */
-#category-group{
-	display: flex;
-	justify-content: center;
-	padding: 21px 0 51px 0;
-	gap: 10px;
-}
-.category-btn{ 
-	align-items: center;
-	padding: 9px 10px;
-	border-radius: 60px;
-	border: 1px solid #1D6154;
-	background-color:unset;
-	color: #1D6154;
-	font-size: 16;
-	font-weight: bold;
-	font-family: 'Syne';
-	min-width: 100px;
-	
-}
-.category-btn:hover{
-	background-color: #1D6154;
-	color: white;
-}
-.btn-active {
-	background-color: #1D6154;
-	color: white;
-}
-/* rajouter ce qui est au dessus en js */
-.gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
-}
-
-.gallery img {
-	width: 100%;
-
-}
-#contact {
+#Connexion {
+    padding-top: 100px;
 	width: 50%;
-margin: auto;
+    margin: auto;
 }
-#contact > * {
+#Connexion > * {
 	text-align: center;
 
 }
-#contact h2{
+#Connexion h2{
 	margin-bottom: 20px;
 }
-#contact form {
+#Connexion form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#Connexion input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+#Connexion label {
 	margin: 2em 0 1em 0;
 }
-#contact textarea {
+#Connexion textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="button"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -215,9 +154,22 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
+#mdp-oublie{
+    display: flex;
+    justify-content: center;
+    color: #1D6154;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    width: 100%;
+}
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
-}
+	margin: 2em;
+    padding-right: 20em;
 
+}
