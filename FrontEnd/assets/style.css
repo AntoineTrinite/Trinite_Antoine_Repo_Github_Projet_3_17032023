@@ -170,7 +170,9 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
+}
+.fig-visibility{
+	display: none;
 }
 #contact {
 	width: 50%;
