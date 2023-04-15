@@ -109,7 +109,12 @@ li:hover {
 	text-decoration: none;
 	color:black;
 }
-
+#error-message {
+	font-family: 'Syne';
+	text-align: center;
+	color: red;
+	display: none;
+}
 #Connexion {
     padding-top: 100px;
 	width: 50%;

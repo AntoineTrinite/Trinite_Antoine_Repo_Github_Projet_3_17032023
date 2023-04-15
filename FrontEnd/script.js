@@ -83,24 +83,7 @@ setOfCategories.forEach(function(category) {
     });
 };
 
+//Récupération du token de connexion
+const token = sessionStorage.getItem('token');
+console.log(token)
 
-
-
-// en gros reprendre l'array et le sortir. voir si on peut utiliser un array avec set
-// apres l'avoir sorti mettre le filtre et dire qu'en fonction de la catégorie choisie il faut enlever le reste
-// si on choisit le bouton tout cela montre tout le tableau
-
-
-
-// curl -X 'GET' \
-//   'http://localhost:5678/api/works' \
-//   -H 'accept: application/json'
-
-
-//regarder ça pour faire la function :
-// //array.prototype.filter()
-
-// let newArray = data.filter(function(){
-//     return les éléments concernés pas ce type de catégorie (work.category.name)
-//     // il faut afficher le nouveau tableau et enlever l'ancien.
-// })
