@@ -1,7 +1,8 @@
 const gallery = document.querySelector('.gallery')
 const btnGroup = document.querySelector('#category-group');
 let data = null
-
+const logoutBtn = document.getElementById('log');
+const projects = document.getElementById('projects');
 // récupération des informations depuis le fichier JSON
 fetch('http://localhost:5678/api/works')
 .then((response) => response.json())
@@ -56,14 +57,14 @@ setOfCategories.forEach(function(category) {
     btnGroup.appendChild(btn);
 });
 
-    const buttons = document.querySelectorAll('button');
+    const buttons = document.querySelectorAll('.category-btn');
     let tousButton = buttons[0];
     tousButton.classList.add('btn-active');
 
     //création de la boucle pour actualiser les boutons et le contenu
-    buttons.forEach(function(button) {
-        button.addEventListener('click', () => {
-            let category = button.textContent;
+    buttons.forEach(function(buttonCat) {
+        buttonCat.addEventListener('click', () => {
+            let category = buttonCat.textContent;
     
             data.forEach(function(works) {
                 let work = works.category.name;
@@ -78,12 +79,41 @@ setOfCategories.forEach(function(category) {
             buttons.forEach(function(btn) {
                 btn.classList.remove('btn-active');
             });
-            button.classList.add('btn-active');
+            buttonCat.classList.add('btn-active');
         });
     });
 };
 
-//Récupération du token de connexion
+// Récupération du token de connexion
 const token = sessionStorage.getItem('token');
 console.log(token)
 
+// Option de déconnexion
+if (token) {
+    logoutBtn.innerText = 'Logout';
+} else {
+    logoutBtn.innerText = 'Login'
+}
+logoutBtn.addEventListener('click', () => {
+    sessionStorage.clear();
+})
+
+//création du bouton modifier pour la fenêtre modale
+const modifyBtn = document.createElement("button");
+    modifyBtn.textContent = 'modifier';
+    modifyBtn.style.backgroundColor = 'transparent';
+    modifyBtn.style.border = 'none';
+    modifyBtn.style.color = 'black';
+    modifyBtn.style.fontSize = '14px';
+const modifyIcon = document.createElement("i");
+    modifyIcon.className = "fa-regular fa-pen-to-square";
+    modifyIcon.style.fontSize = '14px';
+    modifyIcon.style.color = 'black';
+    modifyIcon.style.paddingLeft = '31px';
+
+    modifyIcon.appendChild(modifyBtn);
+    projects.appendChild(modifyIcon);
+
+modifyBtn.addEventListener('click', (event) => {
+    
+  });

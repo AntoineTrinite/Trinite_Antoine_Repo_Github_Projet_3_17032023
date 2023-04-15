@@ -42,10 +42,6 @@ function connexion(event) {
       //stockage du token dans un session storage
       sessionStorage.setItem('token',token);
       window.location.href = 'index.html';
-
-
-
-
     })
     .catch((error) => {
       console.error('Error:', error);
