@@ -130,6 +130,114 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+/* modale */
+#gallery-modale {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+}
+.modale-bg{
+	position: fixed;
+	top: 0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+}
+.modale-box{
+	position: fixed;
+	top: 50%; left:50%;
+	transform: translate(-50%, -50%);
+	width: 630px;
+	height:731px;
+	background: #ffff;
+	border-radius: 10px;
+}
+.modale-return-btn{
+	display: none;
+	position: fixed;
+	top: 26px;
+	left: 30px;
+	height: 24px;
+	width: 24px;
+	background-color: #ffff;
+	border: none;
+	font-size: 24px;
+	text-align: center;
+	cursor: pointer;
+}
+.modale-close-btn{
+	position: fixed;
+	top: 26px;
+	right: 30px;
+	height: 24px;
+	width: 24px;
+	background-color: #ffff;
+	border: none;
+	font-size: 24px;
+	text-align: center;
+	cursor: pointer;
+}
+.main-modal-box{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 60px;
+}
+.modale-title {
+	color: black;
+	font-size: 26px;
+}
+.modale-photos-modif{
+	height: 420px;
+	width: 420px;
+	border-bottom: 1px solid black;
+}
+
+.modale-footer{
+	display: flex;
+	flex-direction: column;
+	margin-top: 38px;
+	gap: 13px;
+}
+.modale-btn{
+	background: white;
+	border-radius: 60px;
+	border: 0;
+	height: 36px;
+	width: 237px;
+}
+#modale-add-button{
+	background-color: #1D6154;
+	color: #ffff;
+	font-size: 14px;
+	font-family: 'Syne';
+}
+.modale-delete-button{
+	color: red;
+}
+/* ajouter image modale partie 2 */
+#add-image-modale{
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+}
+.title-image{
+	margin-bottom: 36px;
+}
+.photo-zone{
+	padding-top: 36px;
+	width: 420px;
+	height: 169px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	background-color: #E8F1F6;
+	border-radius: 3px;
+}
 /* Rajouter ces catégories en js */
 #category-group{
 	display: flex;

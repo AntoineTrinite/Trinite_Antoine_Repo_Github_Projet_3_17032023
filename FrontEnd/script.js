@@ -112,87 +112,115 @@ function createButton(targetElement, paddingLeft, paddingTop) {
   const projects = document.getElementById('projects');
   const profile = document.getElementById('profile');
 
-
 // Récupération du token de connexion
 const token = sessionStorage.getItem('token');
-console.log(token)
 
 // déclaration des boutons avant pour qu'ils soient accessible en dehors de la boucle
   let profilModifBtn;
   let projectsModifBtn;
-// Option de déconnexion
-if (token) {
-    //logout option
-    logoutBtn.innerText = 'Logout';
 
-    //boutons de modification
+//création de la flèche de retour en arrière dans la modale
+const returnArrow = document.querySelector('.modale-return-btn');
+
+
+//Structure de la modale
+const modale = 
+`<div class="modale-bg">
+    <div class="modale-box">
+        <button class = "modale-return-btn fa-solid fa-arrow-left"></button>
+        <button class = "modale-close-btn fa-solid fa-xmark"></button>
+        <div class="main-modal-box">
+            <div id="gallery-modale">
+                <h3 class="modale-title">Galerie photo</h3>
+
+                <div class="modale-photos-modif"></div>
+
+                <div class="modale-footer">
+                    <button class="modale-btn" id="modale-add-button">Ajouter une photo</button>
+                    <button class="modale-btn modale-delete-button">Supprimer la galerie</button>
+                </div>
+            </div>
+            <div id="add-image-modale">
+                <h3 class="modale-title title-image">Ajout photo</h3>
+
+                <div class="photo-zone">
+                    <img src="#" alt ="image"/>
+                    <button class="ajouter-photo"></button>
+                    <p>jpg, png : 4mo max</p>
+                </div>
+                <div class="add-description">
+                    <form>
+                        <label for="titre">Titre :</label>
+                        <input type="text" id="titre" name="titre" required>
+                        <br>
+                        <label for="categorie">Catégorie :</label>
+                        <select id="categorie" name="categorie" required>
+                            <option value="" disabled selected> </option>
+                            <option value="option1">Objets</option>
+                            <option value="option2">Appartements</option>
+                            <option value="option3">Hotels & restaurants</option>
+                        </select>
+                        <br>
+                        <input type="submit" value="Valider">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>`;
+
+// condition de connexion
+if(token){
+    //création des boutons de modification
     profilModifBtn = createButton(profile, 60, 13);
     projectsModifBtn = createButton(projects, 30, 0);
+
+    //ajout de la modale au DOM
+    const modaleAll = document.createElement('div');
+    modaleAll.style.display = "none";
+    modaleAll.innerHTML = modale;
+    document.body.appendChild(modaleAll);
+
+    //ouverture et fermeture de la modale
+    const closeBtn = document.querySelector(".modale-close-btn")
+    projectsModifBtn.onclick = function () {
+        modaleAll.style.display = "block";
+    }
+    closeBtn.onclick = function () {
+        modaleAll.style.display = "none";
+        returnArrow.style.display = "none";
+        galleryModale.style.display = "flex";
+        addImageModale.style.display = "none";
+    }
+
+    //création de la flèche de retour en arrière dans la modale
+    const returnArrow = document.querySelector('.modale-return-btn');
+    const addImageBtn = document.querySelector('#modale-add-button');
+    const galleryModale = document.querySelector('#gallery-modale');
+    const addImageModale = document.querySelector('#add-image-modale');
+    addImageBtn.onclick = function () {
+        returnArrow.style.display = "none";
+        galleryModale.style.display = "none";
+        addImageModale.style.display = "flex";
+        returnArrow.style.display = "block";
+    }
+    returnArrow.onclick = function () {
+        returnArrow.style.display = "none";
+        galleryModale.style.display = "flex";
+        addImageModale.style.display = "none";
+    }
+    
+    //Option de déconnexion
+    logoutBtn.innerText = 'Logout';
+    logoutBtn.addEventListener('click', (event) => {
+        sessionStorage.clear();
+        event.preventDefault()
+        location.reload()
+    })
 } else {
+    //remplacer le bouton logout par un login si l'utilisateur n'est pas connecté
     logoutBtn.innerText = 'Login'
 }
-
-logoutBtn.addEventListener('click', () => {
-    sessionStorage.clear();
-})
-    
-
-// création de la modale - PARTIE 1
-//bg
- const modalBg = document.createElement('div');
- modalBg.style.position = 'fixed';
- modalBg.style.top = '0';
- modalBg.style.left = '0';
- modalBg.style.width = '100%';
- modalBg.style.height = '100%';
- modalBg.style.background = 'rgba(0, 0, 0, 0.3)';
- modalBg.style.display = "none";
- document.body.appendChild(modalBg);
-
-//boite
-const modalBox = document.createElement('div');
-modalBox.style.position = 'fixed';
-modalBox.style.top = '50%';
-modalBox.style.left = '50%';
-modalBox.style.transform = 'translate(-50%, -50%)';
-modalBox.style.width = '630px';
-modalBox.style.height = '731px';
-modalBox.style.background = '#ffff';
-modalBox.style.borderRadius = '10px'
-modalBg.appendChild(modalBox)
-//bouton close
-const closeBtn = document.createElement('button');
-closeBtn.style.position = 'fixed';
-closeBtn.style.top = '26px';
-closeBtn.style.right = '30px';
-closeBtn.style.height = '24px';
-closeBtn.style.width = '24px';
-closeBtn.style.backgroundColor = '#ffff';
-closeBtn.style.border = 'none';
-closeBtn.className = "fa-solid fa-xmark";
-closeBtn.style.fontSize = '24px';
-closeBtn.style.textAlign = 'center';
-closeBtn.style.cursor = 'pointer';
-modalBox.appendChild(closeBtn);
-//gallerie avec photos éditables
-
-//trait
-
-//bouton ajouter une photo
-
-//bouton supprimer gallerie
-
-
-// ouverture et fermeture de la modale
-    projectsModifBtn.onclick = function () {
-        modalBg.style.display = "block";
-    }
-
-    // Close the modal
-    closeBtn.onclick = function () {
-        modalBg.style.display = "none";
-    }
-
 // Suppression des travaux existants - PARTIE 2
 //     function delRequest() {
 //      fetch('https://api.example.com/data', {
