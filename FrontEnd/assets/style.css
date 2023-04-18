@@ -136,6 +136,8 @@ li:hover {
 	flex-direction: column;
 	align-items: center;
 	align-content: center;
+	height: 623px;
+	justify-content: space-between;
 }
 .modale-bg{
 	position: fixed;
@@ -190,9 +192,16 @@ li:hover {
 	font-size: 26px;
 }
 .modale-photos-modif{
-	height: 420px;
+	margin-top: 40px;
+	height: 430px;
 	width: 420px;
 	border-bottom: 1px solid black;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	
+	column-gap:9px;
 }
 
 .modale-footer{
@@ -214,6 +223,9 @@ li:hover {
 	font-size: 14px;
 	font-family: 'Syne';
 }
+#modale-add-button:active{
+	background: rgba(0, 0, 0, 0.3);
+  }
 .modale-delete-button{
 	color: red;
 }
@@ -229,6 +241,7 @@ li:hover {
 }
 .photo-zone{
 	padding-top: 36px;
+	margin-bottom: 30px;
 	width: 420px;
 	height: 169px;
 	display: flex;
@@ -237,7 +250,79 @@ li:hover {
 	align-content: center;
 	background-color: #E8F1F6;
 	border-radius: 3px;
+	cursor: pointer;
 }
+.fa-image{
+	height: 58px;
+	width: 58px;
+	font-size: 58px;
+	color: #B9C5CC;
+}
+.ajouter-photo{
+	margin-top: 15px;
+	margin-bottom: 7px;
+	height: 36px;
+	width: 173px;
+	border-radius: 50px;
+	background-color: #CBD6DC;
+	color: #306685;
+	border: none;
+	font-weight: bold;
+}
+.ajouter-photo:active{
+	background: rgba(0, 0, 0, 0.3);
+}
+/* formulaire d'ajout d'image*/
+#formulaire-ajout{
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+}
+.form-group {
+	margin-bottom: 21px;
+  }
+  .form-border{
+	border-bottom: 1px solid #B3B3B3;
+	padding-bottom: 50px;
+	margin-bottom: 0px;
+  }
+  .form-group label {
+	font-weight: bold;
+	font-size: 14px;
+	display: block;
+	margin-bottom: 10px;
+	color: #3D3D3D;
+  }
+  #titre{
+	width: 420px;
+	height: 50px;
+	border: none;
+	font-family: 'Work Sans';
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+	background-color: white;
+	color: #666;
+	outline: none;
+  }
+  
+  .form-group select {
+	width: 420px;
+	height: 50px;
+	border: none;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+	background-color: white;
+	color: #666;
+	outline: none;
+	font-family: 'Work Sans';
+  }
+  
+  
+  #validation-btn {
+	margin-top: 32px;
+	border: none;
+	width: 237px;
+	height: 36px;
+	background: rgba(0, 0, 0, 0.3);
+  }
 /* Rajouter ces catégories en js */
 #category-group{
 	display: flex;
@@ -274,7 +359,6 @@ li:hover {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
-
 .gallery img {
 	width: 100%;
 }
@@ -323,10 +407,12 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
+input[type="submit"]:active{
+	background: rgba(0, 0, 0, 0.3);
+  }
 
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
 }
-

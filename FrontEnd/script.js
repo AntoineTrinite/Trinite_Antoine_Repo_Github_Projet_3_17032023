@@ -8,6 +8,7 @@ fetch('http://localhost:5678/api/works')
 .then(response => {
     data = response
     updateDom();
+    updateModifGallery();
 })
 .catch(error => {
     console.error(error);
@@ -34,6 +35,8 @@ function updateDom() {
 
     works.fig = fig;
 });
+
+
 // Tableau set
 const setOfCategories = new Set();
 
@@ -82,6 +85,32 @@ setOfCategories.forEach(function(category) {
         });
     });
 };
+
+function updateModifGallery() {
+    //affichage de l'image et des titres
+    data.forEach(function(works) {
+        const modalePhotosModif = document.querySelector('.modale-photos-modif');
+        const figModale = document.createElement('figure');
+        const imgModale = document.createElement('img');
+        const titreModale = document.createTextNode('éditer');
+
+        //ajout de la taille des images et display
+        imgModale.style.height = "102px";
+        imgModale.style.width = "76px";
+        figModale.style.rowGap ="2px";
+        figModale.style.display = "flex";
+        figModale.style.flexDirection = "column";
+        // récupération de l'image et du titre
+        const imageURL = works.imageUrl;
+        imgModale.src = imageURL;
+
+        // ajout du code à l'HTML
+        figModale.appendChild(imgModale);
+        figModale.appendChild(titreModale);
+        modalePhotosModif.appendChild(figModale);
+
+    });
+}
 
 //création du bouton logout
 const logoutBtn = document.getElementById('log');
@@ -144,31 +173,32 @@ const modale =
                 <h3 class="modale-title title-image">Ajout photo</h3>
 
                 <div class="photo-zone">
-                    <img src="#" alt ="image"/>
-                    <button class="ajouter-photo"></button>
+                <i class="fa-regular fa-image"></i>
+                    <button class="ajouter-photo">+ Ajouter photo</button>
                     <p>jpg, png : 4mo max</p>
                 </div>
                 <div class="add-description">
-                    <form>
-                        <label for="titre">Titre :</label>
-                        <input type="text" id="titre" name="titre" required>
-                        <br>
-                        <label for="categorie">Catégorie :</label>
-                        <select id="categorie" name="categorie" required>
-                            <option value="" disabled selected> </option>
-                            <option value="option1">Objets</option>
-                            <option value="option2">Appartements</option>
-                            <option value="option3">Hotels & restaurants</option>
-                        </select>
-                        <br>
-                        <input type="submit" value="Valider">
-                    </form>
+                    <form id="formulaire-ajout">
+                        <div class="form-group">
+                            <label for="titre">Titre</label>
+                            <input type="text" id="titre" name="titre" required>
+                        </div>
+                        <div class="form-group form-border">
+                            <label for="categorie">Catégorie</label>
+                            <select id="categorie" name="categorie" required>
+                                <option value="" disabled selected></option>
+                                <option value="option1">Objets</option>
+                                <option value="option2">Appartements</option>
+                                <option value="option3">Hotels & restaurants</option>
+                            </select>
+                        </div>
+                    <input id="validation-btn" type="submit" value="Valider">
+                </form>
                 </div>
             </div>
         </div>
     </div>
 </div>`;
-
 // condition de connexion
 if(token){
     //création des boutons de modification
