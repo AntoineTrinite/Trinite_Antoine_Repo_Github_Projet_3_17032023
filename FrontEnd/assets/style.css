@@ -197,13 +197,50 @@ li:hover {
 	width: 420px;
 	border-bottom: 1px solid black;
 	display: flex;
+	position: relative;
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-items: flex-start;
-	
-	column-gap:9px;
+	column-gap: 9px;
 }
-
+.modale-btn-group{
+	position: absolute;
+	margin-left: 35px;
+	margin-top: 6px;
+	display: flex;
+	flex-direction: row;
+	gap: 3px;
+	
+}
+.move-btn{
+	display: flex;
+	background-color: black;
+	border-radius: 2px;
+	height: 17px;
+	width: 17px;
+	border: none;
+	color: white;
+	font-size: 11px;
+	padding-bottom: 4px;
+	justify-content: space-around;
+    align-items: center;
+}
+.move-btn:active{
+	background-color: rgb(190, 190, 190);
+}
+.delete-btn{
+	background-color: black;
+	border-radius: 2px;
+	height: 17px;
+	width: 17px;
+	border: none;
+	padding: 4px;
+	color: white;
+	font-size: 9px;
+}
+.delete-btn:active{
+	background-color: rgb(190, 190, 190);
+}
 .modale-footer{
 	display: flex;
 	flex-direction: column;

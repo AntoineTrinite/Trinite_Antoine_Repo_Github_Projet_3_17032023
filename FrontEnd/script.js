@@ -36,7 +36,6 @@ function updateDom() {
     works.fig = fig;
 });
 
-
 // Tableau set
 const setOfCategories = new Set();
 
@@ -93,6 +92,18 @@ function updateModifGallery() {
         const figModale = document.createElement('figure');
         const imgModale = document.createElement('img');
         const titreModale = document.createTextNode('éditer');
+        const moveBtn = document.createElement('button');
+        const deleteBtn = document.createElement('button');
+        const modaleBtnGroup = document.createElement('div');
+
+        moveBtn.classList.add("move-btn");
+        moveBtn.classList.add("fa-solid");
+        moveBtn.classList.add("fa-up-down-left-right");
+        deleteBtn.classList.add("delete-btn");
+        deleteBtn.classList.add("fa-solid");
+        deleteBtn.classList.add("fa-trash-can");
+
+        modaleBtnGroup.classList.add('modale-btn-group');
 
         //ajout de la taille des images et display
         imgModale.style.height = "102px";
@@ -105,10 +116,15 @@ function updateModifGallery() {
         imgModale.src = imageURL;
 
         // ajout du code à l'HTML
+        modaleBtnGroup.appendChild(moveBtn);
+        modaleBtnGroup.appendChild(deleteBtn);
+        figModale.appendChild(modaleBtnGroup);
         figModale.appendChild(imgModale);
         figModale.appendChild(titreModale);
         modalePhotosModif.appendChild(figModale);
 
+        works.figModale = figModale;
+        works.deleteBtn = deleteBtn;
     });
 }
 
@@ -251,7 +267,17 @@ if(token){
     //remplacer le bouton logout par un login si l'utilisateur n'est pas connecté
     logoutBtn.innerText = 'Login'
 }
+
+
+
+
 // Suppression des travaux existants - PARTIE 2
+
+// fig
+// figModale;
+// deleteBtn; de la modale
+
+
 //     function delRequest() {
 //      fetch('https://api.example.com/data', {
 //     method: 'DELETE', 
