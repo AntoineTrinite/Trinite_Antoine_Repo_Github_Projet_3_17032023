@@ -123,9 +123,36 @@ function updateModifGallery() {
         figModale.appendChild(titreModale);
         modalePhotosModif.appendChild(figModale);
 
-        works.figModale = figModale;
-        works.deleteBtn = deleteBtn;
-    });
+        // Suppression des travaux existants - PARTIE 2
+        let workId = works.id;
+        
+        deleteBtn.addEventListener('click', delRequest);
+            function delRequest(event) {
+
+                event.preventDefault();
+                
+                fetch(`http://localhost:5678/api/works/${workId}`, {
+                method: 'DELETE', 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                    },
+                }).then(response => {
+                    if (response.ok) {
+                      // Si la réponse de l'API indique que la suppression a réussi
+                      // Retirer l'élément du DOM
+                      // Par exemple, si l'élément est un élément de liste <li>
+                      let work = document.getElementById('work' + workId);
+                      if (work) {
+                        work.remove();
+                      }
+                    } else {
+                      console.error('Erreur lors de la suppression : ' + response.statusText);
+                }}).catch(error => {
+                    console.error('Erreur lors de la suppression : ' + error.message);
+                  });
+            }});
+
 }
 
 //création du bouton logout
@@ -170,7 +197,7 @@ const returnArrow = document.querySelector('.modale-return-btn');
 
 //Structure de la modale
 const modale = 
-`<div class="modale-bg">
+`<div class="modale-bg"></div>
     <div class="modale-box">
         <button class = "modale-return-btn fa-solid fa-arrow-left"></button>
         <button class = "modale-close-btn fa-solid fa-xmark"></button>
@@ -187,34 +214,38 @@ const modale =
             </div>
             <div id="add-image-modale">
                 <h3 class="modale-title title-image">Ajout photo</h3>
+                
+                    <div class="photo-zone">
+                    <i class="fa-regular fa-image"></i>
+                        <button class="ajouter-photo">+ Ajouter photo</button>
+                        <input type="file" id = "image_input" class="ajouter-photo" accept="image/png, image/jpg" placeholder="+ Ajouter photo">
+                        <p>jpg, png : 4mo max</p>
+                    </div>
 
-                <div class="photo-zone">
-                <i class="fa-regular fa-image"></i>
-                    <button class="ajouter-photo">+ Ajouter photo</button>
-                    <p>jpg, png : 4mo max</p>
-                </div>
-                <div class="add-description">
-                    <form id="formulaire-ajout">
-                        <div class="form-group">
-                            <label for="titre">Titre</label>
-                            <input type="text" id="titre" name="titre" required>
-                        </div>
-                        <div class="form-group form-border">
-                            <label for="categorie">Catégorie</label>
-                            <select id="categorie" name="categorie" required>
-                                <option value="" disabled selected></option>
-                                <option value="option1">Objets</option>
-                                <option value="option2">Appartements</option>
-                                <option value="option3">Hotels & restaurants</option>
-                            </select>
-                        </div>
-                    <input id="validation-btn" type="submit" value="Valider">
-                </form>
-                </div>
+                    <div class="add-description">
+                        <form id="formulaire-ajout">
+                            <div class="form-group">
+                                <label for="titre">Titre</label>
+                                <input type="text" id="titre" name="titre" required>
+                            </div>
+                            <div class="form-group form-border">
+                                <label for="categorie">Catégorie</label>
+                                <select id="categorie" name="categorie" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="option1">Objets</option>
+                                    <option value="option2">Appartements</option>
+                                    <option value="option3">Hotels & restaurants</option>
+                                </select>
+                            </div>
+                        <input id="validation-btn" type="submit" value="Valider">
+                    </form>
+                    </div>
             </div>
         </div>
-    </div>
 </div>`;
+
+
+
 // condition de connexion
 if(token){
     //création des boutons de modification
@@ -255,6 +286,24 @@ if(token){
         galleryModale.style.display = "flex";
         addImageModale.style.display = "none";
     }
+
+    document.querySelector('.open-modal-btn').addEventListener('click', function() {
+        modaleAll.style.display = "flex";
+      });
+    // fermeture de la modale si clic dehors
+    const modaleBox = document.querySelector('.modale-box');
+    const modaleBg = document.querySelector('.modale-bg');
+
+document.addEventListener('click', function(event) {
+  if (event.target !== modaleBox && event.target !== modaleBg) {
+    // Close the modal
+    modaleAll.style.display = "none";
+    returnArrow.style.display = "none";
+    galleryModale.style.display = "flex";
+    addImageModale.style.display = "none";
+  }
+});
+    
     
     //Option de déconnexion
     logoutBtn.innerText = 'Logout';
@@ -269,31 +318,6 @@ if(token){
 }
 
 
-
-
-// Suppression des travaux existants - PARTIE 2
-
-// fig
-// figModale;
-// deleteBtn; de la modale
-
-
-//     function delRequest() {
-//      fetch('https://api.example.com/data', {
-//     method: 'DELETE', 
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': 'token'
-//     },
-// })
-//     .then((response) => response.json())
-//     .then(response2 => {
-//         data = response2
-//     })
-//     .catch(error => {
-//         console.error(error);
-//     });   
-//     }
 
 // Envoi d’un nouveau projet au back-end via le formulaire de la modale - PARTIE 3
 

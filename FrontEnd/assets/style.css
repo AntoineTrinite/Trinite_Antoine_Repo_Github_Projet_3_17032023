@@ -200,8 +200,9 @@ li:hover {
 	position: relative;
 	flex-direction: row;
 	flex-wrap: wrap;
-	align-items: flex-start;
+	align-content: flex-start;
 	column-gap: 9px;
+	row-gap: 13px;
 }
 .modale-btn-group{
 	position: absolute;
@@ -306,6 +307,19 @@ li:hover {
 	border: none;
 	font-weight: bold;
 }
+#image_input{
+	display: none;
+	margin-top: 15px;
+	margin-bottom: 7px;
+	height: 36px;
+	width: 173px;
+	border-radius: 50px;
+	background-color: #CBD6DC;
+	color: #306685;
+	border: none;
+	font-weight: bold;
+}
+
 .ajouter-photo:active{
 	background: rgba(0, 0, 0, 0.3);
 }
