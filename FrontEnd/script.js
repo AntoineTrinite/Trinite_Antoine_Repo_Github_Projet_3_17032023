@@ -128,8 +128,6 @@ function updateModifGallery() {
         
         deleteBtn.addEventListener('click', delRequest);
             function delRequest(event) {
-
-                event.preventDefault();
                 
                 fetch(`http://localhost:5678/api/works/${workId}`, {
                 method: 'DELETE', 
@@ -139,9 +137,8 @@ function updateModifGallery() {
                     },
                 }).then(response => {
                     if (response.ok) {
-                      // Si la réponse de l'API indique que la suppression a réussi
-                      // Retirer l'élément du DOM
-                      // Par exemple, si l'élément est un élément de liste <li>
+                        
+                    event.preventDefault();
                       let work = document.getElementById('work' + workId);
                       if (work) {
                         work.remove();
@@ -287,22 +284,17 @@ if(token){
         addImageModale.style.display = "none";
     }
 
-    document.querySelector('.open-modal-btn').addEventListener('click', function() {
-        modaleAll.style.display = "flex";
-      });
+   
     // fermeture de la modale si clic dehors
-    const modaleBox = document.querySelector('.modale-box');
     const modaleBg = document.querySelector('.modale-bg');
 
-document.addEventListener('click', function(event) {
-  if (event.target !== modaleBox && event.target !== modaleBg) {
-    // Close the modal
-    modaleAll.style.display = "none";
-    returnArrow.style.display = "none";
-    galleryModale.style.display = "flex";
-    addImageModale.style.display = "none";
-  }
-});
+    modaleBg.addEventListener('click', function(event) {
+        // Close the modal
+        modaleAll.style.display = "none";
+        returnArrow.style.display = "none";
+        galleryModale.style.display = "flex";
+        addImageModale.style.display = "none";
+    });
     
     
     //Option de déconnexion
