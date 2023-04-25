@@ -225,9 +225,16 @@ li:hover {
 	padding-bottom: 4px;
 	justify-content: space-around;
     align-items: center;
+	opacity: 0;
+	
 }
 .move-btn:active{
 	background-color: rgb(190, 190, 190);
+	display: flex;
+}
+figure:hover .move-btn{
+	display: flex;
+	opacity: 1;
 }
 .delete-btn{
 	background-color: black;
@@ -238,6 +245,8 @@ li:hover {
 	padding: 4px;
 	color: white;
 	font-size: 9px;
+	display: flex;
+	justify-content: right;
 }
 .delete-btn:active{
 	background-color: rgb(190, 190, 190);

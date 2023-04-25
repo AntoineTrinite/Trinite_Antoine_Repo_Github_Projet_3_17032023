@@ -28,14 +28,13 @@ function updateDom() {
     titre.innerText = works.title;
     let category = works.category.name;
 
+
     // ajout du code à l'HTML
     fig.appendChild(img);
     fig.appendChild(titre);
     gallery.appendChild(fig);
-
     works.fig = fig;
 });
-
 // Tableau set
 const setOfCategories = new Set();
 
@@ -86,7 +85,7 @@ setOfCategories.forEach(function(category) {
 };
 
 function updateModifGallery() {
-    //affichage de l'image et des titres
+    // Affichage de l'image et des titres
     data.forEach(function(works) {
         const modalePhotosModif = document.querySelector('.modale-photos-modif');
         const figModale = document.createElement('figure');
@@ -105,17 +104,18 @@ function updateModifGallery() {
 
         modaleBtnGroup.classList.add('modale-btn-group');
 
-        //ajout de la taille des images et display
+        // Ajout de la taille des images et display
         imgModale.style.height = "102px";
         imgModale.style.width = "76px";
-        figModale.style.rowGap ="2px";
+        figModale.style.rowGap = "2px";
         figModale.style.display = "flex";
         figModale.style.flexDirection = "column";
-        // récupération de l'image et du titre
+
+        // Récupération de l'image et du titre
         const imageURL = works.imageUrl;
         imgModale.src = imageURL;
 
-        // ajout du code à l'HTML
+        // Ajout du code à l'HTML
         modaleBtnGroup.appendChild(moveBtn);
         modaleBtnGroup.appendChild(deleteBtn);
         figModale.appendChild(modaleBtnGroup);
@@ -125,31 +125,29 @@ function updateModifGallery() {
 
         // Suppression des travaux existants - PARTIE 2
         let workId = works.id;
-        
+
         deleteBtn.addEventListener('click', delRequest);
-            function delRequest(event) {
-                
-                fetch(`http://localhost:5678/api/works/${workId}`, {
-                method: 'DELETE', 
+
+        function delRequest(event) {
+            event.preventDefault();
+            let remove;
+            fetch(`http://localhost:5678/api/works/${workId}`, {
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
-                    },
-                }).then(response => {
-                    if (response.ok) {
-                        
-                    event.preventDefault();
-                      let work = document.getElementById('work' + workId);
-                      if (work) {
-                        work.remove();
-                      }
-                    } else {
-                      console.error('Erreur lors de la suppression : ' + response.statusText);
-                }}).catch(error => {
-                    console.error('Erreur lors de la suppression : ' + error.message);
-                  });
-            }});
-
+                },
+            }).then(response => {
+                // Supprimer l'élément du DOM sans recharger la page
+                modalePhotosModif.removeChild(figModale);
+                figure = gallery.childNodes;
+                gallery.removeChild(figure);
+                
+            }).catch(error => {
+                console.error('Erreur lors de la suppression : ' + error.message);
+            });
+        }
+    });
 }
 
 //création du bouton logout
@@ -245,6 +243,58 @@ const modale =
 
 // condition de connexion
 if(token){
+    //création du bandeau au top de la page :
+    const bandeau = document.createElement('div');
+    const editionMode = document.createElement('p');
+    const editionModeLogo = document.createElement('i');
+    const editionDiv = document.createElement('div');
+    const publicationBtn = document.createElement('button');
+    const main = document.querySelector('main');
+
+    editionMode.innerText = "Mode Édition";
+    editionMode.style.color = "white";
+    editionMode.style.fontSize = "16px";
+    editionMode.style.fontWeight = "normal";
+
+    editionModeLogo.classList.add("fa-regular");
+    editionModeLogo.classList.add("fa-pen-to-square");
+    editionModeLogo.style.color = "white";
+
+    editionDiv.style.display = "flex";
+    editionDiv.style.flexDirection = "row-reverse";
+    editionDiv.style.gap = "12px";
+    editionDiv.appendChild(editionMode);
+    editionDiv.appendChild(editionModeLogo);
+
+    publicationBtn.innerText = "publier les changements";
+    publicationBtn.style.border = "none";
+    publicationBtn.style.borderRadius = "60px";
+    publicationBtn.style.color = "black";
+    publicationBtn.style.backgroundColor = "white";
+    publicationBtn.style.fontWeight = "bold";
+    publicationBtn.style.padding = "11px 23px";
+
+    bandeau.style.position = "fixed";
+    bandeau.style.background = "black";
+    bandeau.style.width = "100vw";
+    bandeau.style.top = "0";
+    bandeau.style.left = "0";
+    bandeau.style.right = "0";
+    bandeau.style.height = "59px";
+    bandeau.style.display = "flex";
+    bandeau.style.justifyContent = "center";
+    bandeau.style.alignItems = "center";
+    bandeau.style.gap = "21px";
+    
+    const header = document.querySelector('header');
+    header.style.marginTop = "99px"
+
+    main.appendChild(bandeau);
+    bandeau.appendChild(editionDiv);
+    bandeau.appendChild(publicationBtn);
+    
+
+
     //création des boutons de modification
     profilModifBtn = createButton(profile, 60, 13);
     projectsModifBtn = createButton(projects, 30, 0);
