@@ -209,16 +209,20 @@ const modale =
             </div>
             <div id="add-image-modale">
                 <h3 class="modale-title title-image">Ajout photo</h3>
-                
-                    <div class="photo-zone">
-                    <i class="fa-regular fa-image"></i>
-                        <button class="ajouter-photo">+ Ajouter photo</button>
-                        <input type="file" id = "image_input" class="ajouter-photo" accept="image/png, image/jpg" placeholder="+ Ajouter photo">
-                        <p>jpg, png : 4mo max</p>
-                    </div>
+                    <form id="formulaire-ajout">
+                        <div class="photo-zone">
+                            <div class="image-affiche"></div>
+                            <div class="image-ajout">
+                                <i class="fa-regular fa-image"></i>
+                                    <label id="add-image">
+                                    + Ajouter photo
+                                    <input type="file" id = "image_input" class="ajouter-photo" accept="image/png, image/jpg">
+                                    </label>
+                                    <p>jpg, png : 4mo max</p>
+                            </div>
+                        </div>
 
-                    <div class="add-description">
-                        <form id="formulaire-ajout">
+                        <div class="add-description">
                             <div class="form-group">
                                 <label for="titre">Titre</label>
                                 <input type="text" id="titre" name="titre" required>
@@ -233,13 +237,11 @@ const modale =
                                 </select>
                             </div>
                         <input id="validation-btn" type="submit" value="Valider">
+                        </div>
                     </form>
-                    </div>
             </div>
         </div>
 </div>`;
-
-
 
 // condition de connexion
 if(token){
@@ -294,7 +296,6 @@ if(token){
     bandeau.appendChild(publicationBtn);
     
 
-
     //création des boutons de modification
     profilModifBtn = createButton(profile, 60, 13);
     projectsModifBtn = createButton(projects, 30, 0);
@@ -309,6 +310,7 @@ if(token){
     const closeBtn = document.querySelector(".modale-close-btn")
     projectsModifBtn.onclick = function () {
         modaleAll.style.display = "block";
+        boiteModale.style.height = "731px";
     }
     closeBtn.onclick = function () {
         modaleAll.style.display = "none";
@@ -322,19 +324,21 @@ if(token){
     const addImageBtn = document.querySelector('#modale-add-button');
     const galleryModale = document.querySelector('#gallery-modale');
     const addImageModale = document.querySelector('#add-image-modale');
+    const boiteModale = document.querySelector(".modale-box");
+
     addImageBtn.onclick = function () {
         returnArrow.style.display = "none";
         galleryModale.style.display = "none";
         addImageModale.style.display = "flex";
         returnArrow.style.display = "block";
+        boiteModale.style.height = "670px";
     }
     returnArrow.onclick = function () {
         returnArrow.style.display = "none";
         galleryModale.style.display = "flex";
         addImageModale.style.display = "none";
+        boiteModale.style.height = "731px";
     }
-
-   
     // fermeture de la modale si clic dehors
     const modaleBg = document.querySelector('.modale-bg');
 
@@ -344,8 +348,41 @@ if(token){
         returnArrow.style.display = "none";
         galleryModale.style.display = "flex";
         addImageModale.style.display = "none";
+        boiteModale.style.height = "731px";
     });
-    
+
+    // sur le chargement, l'image s'affiche, remplace le reste de la zone et retour 
+    // à zéro lorsque l'on clique autre part
+    const imageInput = document.querySelector('#image_input');
+    var uploadedImage = '';
+    imageInput.addEventListener('change', function(){
+
+        const imageAjout = document.querySelector(".image-ajout");
+        const imageAffiche = document.querySelector(".image-affiche")
+        imageAjout.style.display = "none";
+        imageAffiche.style.display = "block";
+
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+            uploadedImage = reader.result;
+            document.querySelector(".image-affiche").style.backgroundImage = `url(${uploadedImage})`;
+        });
+        reader.readAsDataURL(this.files[0]);
+
+        returnArrow.addEventListener("click", () => {
+            imageAjout.style.display = "flex";
+            imageAffiche.style.display = "none";
+        })
+        closeBtn.addEventListener("click", () => {
+            imageAjout.style.display = "flex";
+            imageAffiche.style.display = "none";
+        })
+        modaleBg.addEventListener('click', () => {
+            // Close the modal
+            imageAjout.style.display = "flex";
+            imageAffiche.style.display = "none";
+        });
+    })
     
     //Option de déconnexion
     logoutBtn.innerText = 'Logout';

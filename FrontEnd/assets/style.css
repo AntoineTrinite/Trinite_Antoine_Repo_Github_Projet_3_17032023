@@ -287,7 +287,6 @@ figure:hover .move-btn{
 	margin-bottom: 36px;
 }
 .photo-zone{
-	padding-top: 36px;
 	margin-bottom: 30px;
 	width: 420px;
 	height: 169px;
@@ -297,7 +296,20 @@ figure:hover .move-btn{
 	align-content: center;
 	background-color: #E8F1F6;
 	border-radius: 3px;
-	cursor: pointer;
+}
+.image-affiche{
+	width: 129px;
+	height: 169px;
+	background-position: center;
+	background-size: cover;
+	display: none;
+}
+.image-ajout{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	padding-top: 22px;
 }
 .fa-image{
 	height: 58px;
@@ -326,9 +338,30 @@ figure:hover .move-btn{
 	color: #306685;
 	border: none;
 	font-weight: bold;
+	display: none;
 }
-
-.ajouter-photo:active{
+#add-image{
+	display: flex;
+	margin-top: 15px;
+	margin-bottom: 7px;
+	height: 36px;
+	width: 173px;
+	border-radius: 50px;
+	background-color: #CBD6DC;
+	color: #306685;
+	border: none;
+	font-weight: bold;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.add-description{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+}
+#add-image:active{
 	background: rgba(0, 0, 0, 0.3);
 }
 /* formulaire d'ajout d'image*/
