@@ -4,6 +4,13 @@
 */
 @import url('https://fonts.googleapis.com/css2?family=Syne&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -400,6 +407,7 @@ figure:hover .move-btn{
 	margin-bottom: 10px;
 	color: #3D3D3D;
   }
+  
   #titre{
 	width: 420px;
 	height: 50px;
@@ -525,3 +533,41 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+
+/* Partie formulaire */
+  .form-group {
+	margin-bottom: 21px;
+  }
+  .form-border{
+	border-bottom: 1px solid #B3B3B3;
+	padding-bottom: 50px;
+	margin-bottom: 0px;
+  }
+  .form-group label {
+	font-weight: bold;
+	font-size: 14px;
+	display: block;
+	margin-bottom: 10px;
+	color: #3D3D3D;
+  }
+  .form-group select {
+	width: 420px;
+	height: 50px;
+	border: none;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+	background-color: white;
+	color: #666;
+	outline: none;
+	font-family: 'Work Sans';
+  }
+  #categorie {
+	display: flex;
+	padding-left: 16px;
+	font-family: 'Work Sans';
+	font-size: 14px;
+  }
+  #titre {
+	padding-left: 16px;
+	font-family: 'Work Sans';
+	font-size: 14px;
+  }

@@ -138,10 +138,9 @@ function updateModifGallery() {
                     'Authorization': 'Bearer ' + token
                 },
             }).then(response => {
-                // Supprimer l'élément du DOM sans recharger la page
                 modalePhotosModif.removeChild(figModale);
-                gallery.removeChild(fig);
-                
+
+                works.fig.parentNode.removeChild(works.fig);
             }).catch(error => {
                 console.error('Erreur lors de la suppression : ' + error.message);
             });
@@ -304,9 +303,13 @@ if(token){
     modaleAll.style.display = "none";
     modaleAll.innerHTML = modale;
     document.body.appendChild(modaleAll);
-
+    //création de la fonction de reset de formulaire à la sortie de la modale
+    function resetForm() {
+        document.getElementById("formulaire-ajout").reset();
+      }
     //ouverture et fermeture de la modale
-    const closeBtn = document.querySelector(".modale-close-btn")
+    const closeBtn = document.querySelector(".modale-close-btn");
+    
     projectsModifBtn.onclick = function () {
         modaleAll.style.display = "block";
         boiteModale.style.height = "731px";
@@ -316,6 +319,7 @@ if(token){
         returnArrow.style.display = "none";
         galleryModale.style.display = "flex";
         addImageModale.style.display = "none";
+        resetForm()
     }
 
     //création de la flèche de retour en arrière dans la modale
@@ -337,6 +341,7 @@ if(token){
         galleryModale.style.display = "flex";
         addImageModale.style.display = "none";
         boiteModale.style.height = "731px";
+        resetForm()
     }
     // fermeture de la modale si clic dehors
     const modaleBg = document.querySelector('.modale-bg');
@@ -348,6 +353,7 @@ if(token){
         galleryModale.style.display = "flex";
         addImageModale.style.display = "none";
         boiteModale.style.height = "731px";
+        resetForm()
     });
 
     // sur le chargement, l'image s'affiche, remplace le reste de la zone et retour 
@@ -429,7 +435,7 @@ function addRequest(e) {
         },
         body: formData
     }).then(response => {
-        console.log('envoi terminé');
+        console.log('Envoyé avec succès');
 
         //création de la partie figure
         const newFig = document.createElement('figure');
