@@ -211,8 +211,17 @@ li:hover {
 	display: flex;
 	flex-direction: row;
 	gap: 3px;
-	
 }
+.img-modale{
+	height : 102px;
+    width : 76px;
+}
+.fig-modale{
+	row-gap : 2px;
+    display : flex;
+    flex-direction : column;
+}
+
 .move-btn{
 	display: flex;
 	background-color: black;
@@ -228,6 +237,12 @@ li:hover {
 	opacity: 0;
 	
 }
+
+figure img{
+	max-height: 100%;
+	
+}
+fi
 .move-btn:active{
 	background-color: rgb(190, 190, 190);
 	display: flex;
@@ -443,7 +458,6 @@ figure:hover .move-btn{
 	background-color: #1D6154;
 	color: white;
 }
-/* rajouter ce qui est au dessus en js */
 .gallery {
 	width: 100%;
 	display: grid;
@@ -453,6 +467,9 @@ figure:hover .move-btn{
 }
 .gallery img {
 	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
 }
 .fig-visibility{
 	display: none;

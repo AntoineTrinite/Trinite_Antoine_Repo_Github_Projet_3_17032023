@@ -14,11 +14,13 @@ fetch('http://localhost:5678/api/works')
     console.error(error);
 });
 
+let fig;
 
 function updateDom() {
+
    //affichage de l'image et des titres
    data.forEach(function(works) {
-    const fig = document.createElement('figure')
+    fig = document.createElement('figure')
     const titre = document.createElement('figcaption')
     const img = document.createElement('img')
 
@@ -85,6 +87,7 @@ setOfCategories.forEach(function(category) {
 };
 
 function updateModifGallery() {
+    
     // Affichage de l'image et des titres
     data.forEach(function(works) {
         const modalePhotosModif = document.querySelector('.modale-photos-modif');
@@ -105,11 +108,8 @@ function updateModifGallery() {
         modaleBtnGroup.classList.add('modale-btn-group');
 
         // Ajout de la taille des images et display
-        imgModale.style.height = "102px";
-        imgModale.style.width = "76px";
-        figModale.style.rowGap = "2px";
-        figModale.style.display = "flex";
-        figModale.style.flexDirection = "column";
+        imgModale.classList.add("img-modale");
+        figModale.classList.add("fig-modale");
 
         // Récupération de l'image et du titre
         const imageURL = works.imageUrl;
@@ -140,8 +140,7 @@ function updateModifGallery() {
             }).then(response => {
                 // Supprimer l'élément du DOM sans recharger la page
                 modalePhotosModif.removeChild(figModale);
-                figure = gallery.childNodes;
-                gallery.removeChild(figure);
+                gallery.removeChild(fig);
                 
             }).catch(error => {
                 console.error('Erreur lors de la suppression : ' + error.message);
@@ -216,7 +215,7 @@ const modale =
                                 <i class="fa-regular fa-image"></i>
                                     <label id="add-image">
                                     + Ajouter photo
-                                    <input type="file" id = "image_input" class="ajouter-photo" accept="image/png, image/jpg">
+                                    <input type="file" id = "image_input" class="ajouter-photo" accept="image/png" accept="image/jpg" required>
                                     </label>
                                     <p>jpg, png : 4mo max</p>
                             </div>
@@ -231,9 +230,9 @@ const modale =
                                 <label for="categorie">Catégorie</label>
                                 <select id="categorie" name="categorie" required>
                                     <option value="" disabled selected></option>
-                                    <option value="option1">Objets</option>
-                                    <option value="option2">Appartements</option>
-                                    <option value="option3">Hotels & restaurants</option>
+                                    <option value="1">Objets</option>
+                                    <option value="2">Appartements</option>
+                                    <option value="3">Hotels & restaurants</option>
                                 </select>
                             </div>
                         <input id="validation-btn" type="submit" value="Valider">
@@ -289,7 +288,7 @@ if(token){
     bandeau.style.gap = "21px";
     
     const header = document.querySelector('header');
-    header.style.marginTop = "99px"
+    header.style.marginTop = "99px";
 
     main.appendChild(bandeau);
     bandeau.appendChild(editionDiv);
@@ -356,19 +355,19 @@ if(token){
     const imageInput = document.querySelector('#image_input');
     var uploadedImage = '';
     imageInput.addEventListener('change', function(){
-
+    
         const imageAjout = document.querySelector(".image-ajout");
         const imageAffiche = document.querySelector(".image-affiche")
         imageAjout.style.display = "none";
         imageAffiche.style.display = "block";
-
+    
         const reader = new FileReader();
         reader.addEventListener("load", () => {
             uploadedImage = reader.result;
             document.querySelector(".image-affiche").style.backgroundImage = `url(${uploadedImage})`;
         });
         reader.readAsDataURL(this.files[0]);
-
+    
         returnArrow.addEventListener("click", () => {
             imageAjout.style.display = "flex";
             imageAffiche.style.display = "none";
@@ -384,6 +383,115 @@ if(token){
         });
     })
     
+    
+//Ajout d'une image avec le formulaire
+const form = document.querySelector("form")
+const validationBtn = document.querySelector('#validation-btn');
+const image_input = document.querySelector('#image_input');
+const titreInput = document.querySelector('#titre');
+const categorieInput = document.querySelector('#categorie');
+
+image_input.addEventListener('input', validateForm);
+titreInput.addEventListener('input', validateForm);
+categorieInput.addEventListener('input', validateForm);
+
+let image;
+let titre;
+let categorie;
+
+function validateForm(event) {
+    event.preventDefault();
+    image = image_input.value;
+    titre = titreInput.value;
+    categorie = categorieInput.value;
+
+    if (image !== '' && titre !== '' && categorie !== '') {
+        validationBtn.style.background = '#1D6154';
+        validationBtn.addEventListener('click', addRequest);
+    } else {
+        console.log('Merci de remplir le formulaire correctement !')
+        validationBtn.removeEventListener('click', addRequest); // Added here: remove the event listener when form is not valid
+    }
+};
+
+function addRequest(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('image', image_input.files[0]);
+    formData.append('title', titreInput.value);
+    formData.append('category', categorieInput.value);
+
+    fetch(`http://localhost:5678/api/works`, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        body: formData
+    }).then(response => {
+        console.log('envoi terminé');
+
+        //création de la partie figure
+        const newFig = document.createElement('figure');
+
+        let newImage = document.createElement('img');
+        newImage.onload = () => {
+            URL.revokeObjectURL(newImage.src);
+        };
+        let newImageURL = URL.createObjectURL(image_input.files[0]);
+        newImage.src = newImageURL;
+        newFig.appendChild(newImage);
+
+        const newTitle = document.createElement('figcaption');
+        newTitle.textContent = titre;
+        newFig.appendChild(newTitle);
+        gallery.appendChild(newFig);
+
+
+        // création de la fig modale 
+        const modalePhotosModif = document.querySelector('.modale-photos-modif');
+
+        const newFigModale = document.createElement('figure');
+        const newImageModale = document.createElement('img');
+        newImageModale.onload = () => {
+            URL.revokeObjectURL(newImageModale.src);
+        };
+        newImageModale.src = newImageURL;
+        newImageModale.classList.add('img-modale');
+
+        const newTitleModale = document.createElement('figcaption');
+        newTitleModale.textContent = 'éditer';
+        //recréation des boutons
+        const moveBtn = document.createElement('button');
+        const deleteBtn = document.createElement('button');
+        moveBtn.classList.add("move-btn");
+        moveBtn.classList.add("fa-solid");
+        moveBtn.classList.add("fa-up-down-left-right");
+        deleteBtn.classList.add("delete-btn");
+        deleteBtn.classList.add("fa-solid");
+        deleteBtn.classList.add("fa-trash-can");
+        const modaleBtnGroup = document.createElement('div');
+        modaleBtnGroup.classList.add('modale-btn-group');
+
+
+        //append child pour créer les figures de la modale
+        modaleBtnGroup.appendChild(moveBtn);
+        modaleBtnGroup.appendChild(deleteBtn);
+        newFigModale.appendChild(modaleBtnGroup);
+        newFigModale.appendChild(newImageModale);
+        newFigModale.appendChild(newTitleModale);
+        modalePhotosModif.appendChild(newFigModale);
+
+        // fermeture de la modale lors de l'envoi
+        modaleAll.style.display = "none";
+        returnArrow.style.display = "none";
+        galleryModale.style.display = "flex";
+        addImageModale.style.display = "none";
+
+    }).catch(error => {
+        console.error(error.message);
+    });
+}
     //Option de déconnexion
     logoutBtn.innerText = 'Logout';
     logoutBtn.addEventListener('click', (event) => {
@@ -395,9 +503,3 @@ if(token){
     //remplacer le bouton logout par un login si l'utilisateur n'est pas connecté
     logoutBtn.innerText = 'Login'
 }
-
-
-
-// Envoi d’un nouveau projet au back-end via le formulaire de la modale - PARTIE 3
-
-// Traitement de la réponse de l’API pour afficher dynamiquement la nouvelle image de la modale.
