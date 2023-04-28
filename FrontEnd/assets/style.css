@@ -339,16 +339,9 @@ figure:hover .move-btn{
 	font-size: 58px;
 	color: #B9C5CC;
 }
-.ajouter-photo{
-	margin-top: 15px;
-	margin-bottom: 7px;
-	height: 36px;
-	width: 173px;
-	border-radius: 50px;
-	background-color: #CBD6DC;
-	color: #306685;
-	border: none;
-	font-weight: bold;
+#add-image{
+	position: relative;
+	display: flex;
 }
 #image_input{
 	margin-top: 15px;
@@ -360,7 +353,26 @@ figure:hover .move-btn{
 	color: #306685;
 	border: none;
 	font-weight: bold;
-	display: none;
+	opacity: 0;
+}
+.ajouter-photo{
+
+	margin-top: 15px;
+	margin-bottom: 7px;
+	height: 36px;
+	width: 173px;
+	border-radius: 50px;
+	background-color: #CBD6DC;
+	color: #306685;
+	border: none;
+	font-weight: bold;
+}
+
+.inner-text-add-photo{
+	position: absolute;
+}
+.erreur-msg{
+	color: red;
 }
 #add-image{
 	display: flex;

@@ -212,10 +212,10 @@ const modale =
                             <div class="image-affiche"></div>
                             <div class="image-ajout">
                                 <i class="fa-regular fa-image"></i>
-                                    <label id="add-image">
-                                    + Ajouter photo
-                                    <input type="file" id = "image_input" class="ajouter-photo" accept="image/png" accept="image/jpg" required>
-                                    </label>
+                                <label for="image_input" id="add-image">
+                                   <p class = "inner-text-add-photo"> + Ajouter photo</p>
+                                    <input type="file" name="image" id="image_input" class="ajouter-photo" accept="image/png, image/jpg" required>
+                                </label>
                                     <p>jpg, png : 4mo max</p>
                             </div>
                         </div>
@@ -363,7 +363,7 @@ if(token){
     imageInput.addEventListener('change', function(){
     
         const imageAjout = document.querySelector(".image-ajout");
-        const imageAffiche = document.querySelector(".image-affiche")
+        const imageAffiche = document.querySelector(".image-affiche");
         imageAjout.style.display = "none";
         imageAffiche.style.display = "block";
     
@@ -417,6 +417,7 @@ function validateForm(event) {
     } else {
         console.log('Merci de remplir le formulaire correctement !')
         validationBtn.removeEventListener('click', addRequest); // Added here: remove the event listener when form is not valid
+        validationBtn.style.background = 'rgba(0, 0, 0, 0.3)';
     }
 };
 
@@ -436,6 +437,19 @@ function addRequest(e) {
         body: formData
     }).then(response => {
         console.log('Envoyé avec succès');
+        // affichage du succès de l'envoi pendant 3 secondes
+        const formAjout = document.querySelector('.main-modal-box');
+        formAjout.style.flexDirection = "column-reverse";
+        const successResponse = document.createElement('span');
+        successResponse.innerText = "Projet envoyé avec succès !";
+        successResponse.style.color = "green";
+        successResponse.style.display = "flex";
+        successResponse.style.justifyContent = "space-around";
+        successResponse.style.marginBottom = "10px";
+        setTimeout(() => {
+            successResponse.remove();
+          }, 3000);
+        formAjout.appendChild(successResponse);
 
         //création de la partie figure
         const newFig = document.createElement('figure');
@@ -488,12 +502,14 @@ function addRequest(e) {
         newFigModale.appendChild(newTitleModale);
         modalePhotosModif.appendChild(newFigModale);
 
-        // fermeture de la modale lors de l'envoi
-        modaleAll.style.display = "none";
-        returnArrow.style.display = "none";
-        galleryModale.style.display = "flex";
-        addImageModale.style.display = "none";
-
+        //reset de formulaire
+        resetForm()
+        const imageAjout = document.querySelector(".image-ajout");
+        const imageAffiche = document.querySelector(".image-affiche");
+        imageAjout.style.display = "flex";
+        imageAffiche.style.display = "none";
+        validationBtn.removeEventListener('click', addRequest); // Added here: remove the event listener when form is not valid
+        validationBtn.style.background = 'rgba(0, 0, 0, 0.3)';
     }).catch(error => {
         console.error(error.message);
     });
