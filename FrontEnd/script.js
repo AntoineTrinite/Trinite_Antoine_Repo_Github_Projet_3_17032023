@@ -87,7 +87,9 @@ setOfCategories.forEach(function(category) {
 };
 
 function updateModifGallery() {
-    
+    //
+    const modalePhotosModif = document.querySelector('.modale-photos-modif');
+    modalePhotosModif.innerHTML = '';
     // Affichage de l'image et des titres
     data.forEach(function(works) {
         const modalePhotosModif = document.querySelector('.modale-photos-modif');
@@ -126,11 +128,22 @@ function updateModifGallery() {
         // Suppression des travaux existants - PARTIE 2
         let workId = works.id;
 
+        //ajout de la possibilité de supprimer un nouveau travail sans rafraichir
+        let newDeleteBtn
+        if (newDeleteBtn) {
+            let newDeleteBtn = document.querySelector('delete-btn');
+            newDeleteBtn.addEventListener('click', () => {
+                newDeleteBtn.addEventListener('click', delRequest);
+            console.log("yoyo")
+        })
+        }
+        
+
+
         deleteBtn.addEventListener('click', delRequest);
 
         function delRequest(event) {
             event.preventDefault();
-            let remove;
             fetch(`http://localhost:5678/api/works/${workId}`, {
                 method: 'DELETE',
                 headers: {
@@ -139,8 +152,8 @@ function updateModifGallery() {
                 },
             }).then(response => {
                 modalePhotosModif.removeChild(figModale);
-
                 works.fig.parentNode.removeChild(works.fig);
+                
             }).catch(error => {
                 console.error('Erreur lors de la suppression : ' + error.message);
             });
@@ -391,7 +404,6 @@ if(token){
     
     
 //Ajout d'une image avec le formulaire
-const form = document.querySelector("form")
 const validationBtn = document.querySelector('#validation-btn');
 const image_input = document.querySelector('#image_input');
 const titreInput = document.querySelector('#titre');
@@ -410,14 +422,14 @@ function validateForm(event) {
     image = image_input.value;
     titre = titreInput.value;
     categorie = categorieInput.value;
+    let isErrorMessageLogged = false;
 
     if (image !== '' && titre !== '' && categorie !== '') {
         validationBtn.style.background = '#1D6154';
         validationBtn.addEventListener('click', addRequest);
     } else {
-        console.log('Merci de remplir le formulaire correctement !')
-        validationBtn.removeEventListener('click', addRequest); // Added here: remove the event listener when form is not valid
-        validationBtn.style.background = 'rgba(0, 0, 0, 0.3)';
+            validationBtn.removeEventListener('click', addRequest);
+            validationBtn.style.background = 'rgba(0, 0, 0, 0.3)'; 
     }
 };
 
@@ -436,6 +448,7 @@ function addRequest(e) {
         },
         body: formData
     }).then(response => {
+        works = response;
         console.log('Envoyé avec succès');
         // affichage du succès de l'envoi pendant 3 secondes
         const formAjout = document.querySelector('.main-modal-box');
@@ -483,37 +496,38 @@ function addRequest(e) {
         newTitleModale.textContent = 'éditer';
         //recréation des boutons
         const moveBtn = document.createElement('button');
-        const deleteBtn = document.createElement('button');
+        let newDeleteBtn = document.createElement('button');
         moveBtn.classList.add("move-btn");
         moveBtn.classList.add("fa-solid");
         moveBtn.classList.add("fa-up-down-left-right");
-        deleteBtn.classList.add("delete-btn");
-        deleteBtn.classList.add("fa-solid");
-        deleteBtn.classList.add("fa-trash-can");
+        newDeleteBtn.classList.add("delete-btn");
+        newDeleteBtn.classList.add("fa-solid");
+        newDeleteBtn.classList.add("fa-trash-can");
         const modaleBtnGroup = document.createElement('div');
         modaleBtnGroup.classList.add('modale-btn-group');
 
 
         //append child pour créer les figures de la modale
         modaleBtnGroup.appendChild(moveBtn);
-        modaleBtnGroup.appendChild(deleteBtn);
+        modaleBtnGroup.appendChild(newDeleteBtn);
         newFigModale.appendChild(modaleBtnGroup);
         newFigModale.appendChild(newImageModale);
         newFigModale.appendChild(newTitleModale);
         modalePhotosModif.appendChild(newFigModale);
-
+        
         //reset de formulaire
         resetForm()
         const imageAjout = document.querySelector(".image-ajout");
         const imageAffiche = document.querySelector(".image-affiche");
         imageAjout.style.display = "flex";
         imageAffiche.style.display = "none";
-        validationBtn.removeEventListener('click', addRequest); // Added here: remove the event listener when form is not valid
+        validationBtn.removeEventListener('click', addRequest);
         validationBtn.style.background = 'rgba(0, 0, 0, 0.3)';
     }).catch(error => {
         console.error(error.message);
     });
 }
+
     //Option de déconnexion
     logoutBtn.innerText = 'Logout';
     logoutBtn.addEventListener('click', (event) => {
