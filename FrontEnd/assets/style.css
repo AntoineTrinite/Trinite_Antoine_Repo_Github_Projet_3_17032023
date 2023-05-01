@@ -540,10 +540,20 @@ input[type="submit"]:active{
 	background: rgba(0, 0, 0, 0.3);
   }
 
+
+footer {
+	display: block;
+	
+}
 footer nav ul {
+	list-style-type: none;
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+nav li {
+	padding: 0 10px;
+    font-size: 1.2em;
 }
 
 /* Partie formulaire */

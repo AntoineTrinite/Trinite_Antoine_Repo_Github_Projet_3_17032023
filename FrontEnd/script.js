@@ -403,35 +403,31 @@ if(token){
     })
     
     
-//Ajout d'une image avec le formulaire
-const validationBtn = document.querySelector('#validation-btn');
+    const validationBtn = document.querySelector('#validation-btn');
 const image_input = document.querySelector('#image_input');
 const titreInput = document.querySelector('#titre');
 const categorieInput = document.querySelector('#categorie');
+
+let isFormValidated = false;
 
 image_input.addEventListener('input', validateForm);
 titreInput.addEventListener('input', validateForm);
 categorieInput.addEventListener('input', validateForm);
 
-let image;
-let titre;
-let categorie;
-
 function validateForm(event) {
-    event.preventDefault();
-    image = image_input.value;
-    titre = titreInput.value;
-    categorie = categorieInput.value;
-    let isErrorMessageLogged = false;
+  const image = image_input.value;
+  const titre = titreInput.value;
+  const categorie = categorieInput.value;
 
-    if (image !== '' && titre !== '' && categorie !== '') {
+  if (image === '' || titre === '' || categorie === '') {
+    validationBtn.style.background = 'rgba(0, 0, 0, 0.3)';
+    validationBtn.removeEventListener('click', addRequest);
+    if (isFormValidated) {
         validationBtn.style.background = '#1D6154';
-        validationBtn.addEventListener('click', addRequest);
-    } else {
-            validationBtn.removeEventListener('click', addRequest);
-            validationBtn.style.background = 'rgba(0, 0, 0, 0.3)'; 
-    }
-};
+    validationBtn.addEventListener('click', addRequest);
+    isFormValidated = true;
+    }} 
+}
 
 function addRequest(e) {
     e.preventDefault();

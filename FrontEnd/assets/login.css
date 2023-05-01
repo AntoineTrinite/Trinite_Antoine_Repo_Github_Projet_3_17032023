@@ -51,12 +51,13 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
 header {
+	margin: auto;
+	max-width: 1140px;
 	display: flex;
 	justify-content: space-between;
 	padding: 50px 0;
@@ -117,7 +118,7 @@ li:hover {
 }
 #Connexion {
     padding-top: 100px;
-	width: 50%;
+	width: 379px;
     margin: auto;
 }
 #Connexion > * {
@@ -129,7 +130,6 @@ li:hover {
 }
 #Connexion form {
 	text-align: left;
-	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
@@ -150,13 +150,15 @@ li:hover {
 
 input[type="button"]{
 	font-family: 'Syne';
-	font-weight: 700;
+	font-weight: lighter;
+	font-size: 14px;
 	color: white;
 	background-color: #1D6154;
 	margin : 2em auto ;
-	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	width: 179px;
+	height: 36px;
 }
 
 #mdp-oublie{
@@ -164,17 +166,22 @@ input[type="button"]{
     justify-content: center;
     color: #1D6154;
 }
+
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background-color: white;
+	display: block;
+	background-color: white;
     width: 100%;
 }
 footer nav ul {
+	list-style-type: none;
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em;
-    padding-right: 20em;
-
+	padding: 2em;
+	padding-right: 20em;
+	margin-top: 355px;
+}
+nav li {
+	padding: 0 10px;
+    font-size: 1.2em;
+	cursor: pointer;
 }
